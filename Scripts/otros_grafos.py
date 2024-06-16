@@ -69,7 +69,7 @@ plt.show()
 # Desperdicio de productos por tipo de producto
 desperdicio_por_producto = df[['Desperdicios de Sándwiches de Pan', 'Desechos de Envolturas', 'Muffins Desperdiciados', 'Galletas Desechadas',
                                                  'Desechos de Vasos de Frutas']].sum()
-desperdicio_por_producto.plot(kind='pie', autopct='%1.1f%%', figsize=(8, 8), color = colores)
+desperdicio_por_producto.plot(kind='pie', autopct='%1.1f%%', figsize=(8, 8))
 plt.title('Desperdicio por Tipo de Producto')
 plt.ylabel('')
 plt.show()
