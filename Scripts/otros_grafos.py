@@ -18,10 +18,12 @@ for col in df.columns[3:]:
     df[col] = pd.to_numeric(df[col], errors='coerce')
     
 # Colores personalizados
-colores = ['#A69A81', '#E0D3B8', '#EB9E6E', '#EB6E6E', '#706F6B', '#8C8C8C', '#B2B2B2', '#D9D9D9', '#F0F0F0', '#241811','#D4A979','#E3C88F','#C2C995','#A8BD95']
+colores = ['#A69A81', '#E0D3B8', '#EB9E6E', '#EB6E6E', '#706F6B', '#8C8C8C', '#B2B2B2', '#D9D9D9', '#CAAC8C']
 
 # Nombres personalizados para las etiquetas de los productos
 nombres_productos = ['Sándwiches', 'Envolturas', 'Muffins', 'Galletas', 'Vasos Frutas', 'Papitas', 'Jugos', 'Refrescos', 'Cafés']
+meses = ['Enero', 'Febrero', 'Marzo', 'Abril']
+nombres_desperdicios = ['Sándwiches', 'Envolturas', 'Muffins', 'Galletas', 'Vasos Frutas']
 
 # Ventas de productos por días
 ventas_por_dia = df.groupby('Día de la semana')[['Sándwiches de Pan Vendidos', 'Envolturas Vendidas', 'Muffins Vendidos', 'Galletas Vendidas', 'Vasos de Frutas Vendidos', 'Papitas Fritas Vendidas', 'Jugos Vendidos', 'Refrescos Vendidos', 'Cafes Vendidos']].sum()
@@ -52,7 +54,6 @@ cursor = mplcursors.cursor(ax, hover=True)
 @cursor.connect("add")
 def on_add(sel):
     sel.annotation.set(text=f'{sel.target[1]:.0f}', ha='center', fontsize=8, backgroundcolor='white')
-
 plt.show()
 
 
@@ -64,12 +65,17 @@ ventas_por_mes.plot(kind='bar', figsize=(10, 6), color= colores)
 plt.title('Ventas Totales por Mes')
 plt.ylabel('Cantidad Vendida')
 plt.xlabel('Mes')
+plt.xticks(ticks=range(len(meses)), labels=meses, rotation = 360)
 plt.show()
 
-# Desperdicio de productos por tipo de producto
+# Datos de desperdicio por tipo de producto
 desperdicio_por_producto = df[['Desperdicios de Sándwiches de Pan', 'Desechos de Envolturas', 'Muffins Desperdiciados', 'Galletas Desechadas',
-                                                 'Desechos de Vasos de Frutas']].sum()
-desperdicio_por_producto.plot(kind='pie', autopct='%1.1f%%', figsize=(8, 8))
+                               'Desechos de Vasos de Frutas']].sum()
+# Nombres personalizados para las etiquetas de desperdicio
+nombres_desechos = ['Sándwiches', 'Envolturas', 'Muffins', 'Galletas', 'Vasos de Frutas']
+
+# Graficar el gráfico de pastel con los colores personalizados y etiquetas personalizadas
+desperdicio_por_producto.plot(kind='pie', autopct='%1.1f%%', figsize=(8, 8), colors=colores[:desperdicio_por_producto.shape[0]], labels=nombres_desechos)
 plt.title('Desperdicio por Tipo de Producto')
 plt.ylabel('')
 plt.show()
